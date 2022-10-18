@@ -27,7 +27,7 @@ nav {
   padding: 1vw;
   margin-right: 2vw;
   background-color: mediumvioletred;
-  color: black;
+  color: whitesmoke;
 }
 .logo-container {
   position: relative;
@@ -59,4 +59,19 @@ h1 {
 .container-footer img {
   width: 36px;
   margin-right: 3vw;
+}
+
+.container-form{
+  width: 60%;
+  margin: 0 auto;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
+
+footer{
+  align-items: flex-end;
+}
+.container-button-form{
+  display: flex;
+  justify-content: flex-end;
 }
