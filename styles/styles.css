@@ -8,12 +8,14 @@ nav {
   background-color: navy;
   display: flex;
   flex-wrap: nowrap;
+  
 }
 .nav-container {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  
 }
 
 .nav-container ul {
@@ -61,17 +63,14 @@ h1 {
   margin-right: 3vw;
 }
 
-.container-form{
-  width: 60%;
-  margin: 0 auto;
-  padding-top: 3vh;
-  padding-bottom: 3vh;
-}
-
 footer{
   align-items: flex-end;
 }
 .container-button-form{
   display: flex;
   justify-content: flex-end;
+}
+
+.nav-details{
+  margin-bottom: 8vh;
 }
