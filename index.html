@@ -11,6 +11,7 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./styles/styles.css"/>
     <title>Home</title>
   </head>
@@ -69,7 +70,7 @@
       </button>
     </div>
 
-    <div class="container-check-seeker my-3 mx-5">
+    <div class="my-3 mx-5 d-flex p-2 flex-wrap align-items-center justify-content-around">
       <div class="form-check form-check-inline">
         <input
           class="form-check-input"
@@ -115,22 +116,25 @@
         />
         <label class="form-check-label" for="inlineCheckbox5">Category</label>
       </div>
-
-      <form class="d-flex" role="search">
+      <div class="d-flex ms-5">
         <input
           class="form-control me-2"
           type="search"
           placeholder="Search"
           aria-label="Search"
+          width="900"
         />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+        <i class="bi bi-search"></i>
+        <!--<button class="btn btn-outline-success" type="submit">Search</button>-->
+      </div>
     </div>
+  
 
-    <div class="row row-cols-1 row-cols-md-4 g-4 mx-5 my-1">
+
+    <div class="row row-cols-1 row-cols-md-4 row-cols-sm-2 g-4 mx-5 my-1">
       <div class="col">
-        <div class="card" style="width: 18rem">
-          <img src="./assets/cine7.jpg" class="card-img-top" alt="..." />
+        <div class="card h-100" style="width: 18rem">
+          <img src="./assets/maraton3.jpg" class="card-img-top" alt="..." />
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">
@@ -142,9 +146,9 @@
         </div>
       </div>
       <div class="col">
-        <div class="card" style="width: 18rem">
+        <div class="card h-100" style="width: 18rem">
           <img
-            src="./assets/concierto-de-musica1.jpg"
+            src="./assets/salida-al-museo5.jpg"
             class="card-img-top"
             alt="..."
           />
@@ -159,7 +163,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="card" style="width: 18rem">
+        <div class="card h-100" style="width: 18rem">
           <img
             src="./assets/feria-de-comidas7.jpg"
             class="card-img-top"
@@ -176,7 +180,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="card" style="width: 18rem">
+        <div class="card h-100" style="width: 18rem">
           <img
             src="./assets/fiesta-de-disfraces1.jpg"
             class="card-img-top"

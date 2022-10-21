@@ -43,11 +43,7 @@ h1 {
   align-items: center;
   padding: 3vh;
 }
-.container-check-seeker {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-}
+
 .container-footer {
   height: 15vh;
   background-color: navy;
@@ -66,9 +62,9 @@ h1 {
 footer{
   align-items: flex-end;
 }
-.container-button-form{
-  display: flex;
-  justify-content: flex-end;
+.container-form{
+  width: 80%;
+  margin: 0 auto;
 }
 
 .nav-details{
