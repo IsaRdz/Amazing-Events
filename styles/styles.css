@@ -47,12 +47,6 @@ h1 {
 .container-footer {
   height: 15vh;
   background-color: navy;
-  margin-top: 5vh;
-  padding: 2vh;
-  padding-left: 3vw;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 .container-footer img {
   width: 36px;
