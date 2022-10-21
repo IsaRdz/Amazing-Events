@@ -45,17 +45,17 @@ h1 {
 }
 
 .container-footer {
-  height: 15vh;
+  height: 13vh;
   background-color: navy;
+  width: 100%;
+  position: relative;
+  bottom: 0;
 }
 .container-footer img {
   width: 36px;
   margin-right: 3vw;
 }
 
-footer{
-  align-items: flex-end;
-}
 .container-form{
   width: 80%;
   margin: 0 auto;
