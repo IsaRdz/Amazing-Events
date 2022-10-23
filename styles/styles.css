@@ -4,20 +4,20 @@
   padding: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+body{
+  height: 100%;
+}
 nav {
   background-color: navy;
   display: flex;
   flex-wrap: nowrap;
-  
 }
 .nav-container {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  
 }
-
 .nav-container ul {
   display: flex;
   list-style-type: none;
@@ -43,24 +43,31 @@ h1 {
   align-items: center;
   padding: 3vh;
 }
-
 .container-footer {
   height: 13vh;
   background-color: navy;
   width: 100%;
-  position: relative;
-  bottom: 0;
 }
-.container-footer img {
-  width: 36px;
-  margin-right: 3vw;
+.container-footer-bottom {
+  height: 13vh;
+  background-color: navy;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .container-form{
   width: 80%;
   margin: 0 auto;
 }
-
 .nav-details{
   margin-bottom: 8vh;
+}
+.table{
+  width: 80%;
+  margin: 0 auto;
+}
+td{
+  height: 30px;
 }
