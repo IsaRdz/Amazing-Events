@@ -40,6 +40,11 @@ h1 {
   background-color: #711A75;
   width: 100%;
   color: whitesmoke;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.container-icons{
+  width: 75%;
 }
 .container-details{
   height: 70vh;
@@ -74,8 +79,25 @@ table{
   box-shadow: 2px 2px 5px #180A0A;
 }
 @media (max-width: 768px){
+  
   .container-form{
       width: 80%;
   }
+ }
 
-  }
+  @media (max-width: 625px){
+    .container-footer{
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .rights{
+      width: 100%;
+      text-align: center;
+    }
+    .container-icons{
+      width: 100%;
+      justify-content: center;
+    }
+   }
+      
+  
