@@ -47,7 +47,8 @@ h1 {
   width: 75%;
 }
 .container-details{
-  height: 70vh;
+  height: 80%;
+  margin-bottom: 10%;
 }
 .card{
   width: 18rem;
