@@ -10,7 +10,9 @@ body{
 .title-color{
   background-color: #711A75;
 }
-
+.navbar-brand > img{
+  width: 15vw;
+}
 h1 {
   color: whitesmoke;
   text-align: center;
@@ -104,6 +106,9 @@ table{
     }
     .card{
       width: 16rem;
+    }
+    .navbar-brand > img{
+      width: 30vw;
     }
    }
       
