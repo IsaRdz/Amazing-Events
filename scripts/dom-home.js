@@ -165,8 +165,8 @@ const data={
 
     const events = data.eventos.map(event =>{
         return body += `
-        <div class="card h-100">
-          <img src=${event.image} alt="..." />
+        <div class="card">
+          <img src=${event.image} alt="..." class="image-card"/>
           <div class="card-body">
             <h5 class="card-title">${event.name}</h5>
             <p class="card-text">
