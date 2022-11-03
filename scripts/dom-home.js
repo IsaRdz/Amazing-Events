@@ -174,6 +174,7 @@ const data={
             </p>
             <a href="./pages/details.html" class="btn btn-color">View more</a>
           </div>
+        </div>
         `;        
     });
     tagToUpdate.innerHTML = body;

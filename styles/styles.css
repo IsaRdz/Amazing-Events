@@ -89,6 +89,10 @@ table {
   position: fixed;
   bottom: 0;
 }
+.root-card{
+  display: flex;
+  flex-wrap: wrap;
+}
 
 @media (max-width: 768px) {
   .container-form {
@@ -103,6 +107,7 @@ table {
     width: 100%;
   }
 }
+
 
 @media (max-width: 625px) {
   .container-footer {
