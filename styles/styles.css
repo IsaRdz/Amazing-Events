@@ -134,7 +134,12 @@ table {
     position: relative;
     bottom: 0;
   }
-  
+  .card-details{
+    height: auto;
+  }
+  .card-body-details{
+    margin-top: 2vh;
+  }
 }
 
 
@@ -152,6 +157,9 @@ table {
     justify-content: center;
   }
   .card {
+    width: 60%;
+  }
+  .image-card{
     width: 100%;
   }
   .navbar-brand > img {
