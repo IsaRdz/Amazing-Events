@@ -157,6 +157,11 @@ const data={
       }
     ]
   }
+
+  const actualDate = data.fechaActual;
+  const dateSplit = actualDate.split("-");
+  const dateToCompareParsed = new Date(dateSplit[0], dateSplit[1] - 1, dateSplit[2]);
+  const actualDateInTimestamp = dateToCompareParsed.getTime();
   
   function addEvents(data){
     let body = ``;
@@ -164,7 +169,13 @@ const data={
     console.log("tagToUpdate", tagToUpdate);
 
     const events = data.eventos.map(event =>{
-        if(data.fechaActual < event.date){
+
+      const dateToCompare = event.date;
+      const dateSplit = dateToCompare.split("-");
+      const dateToCompareParsed = new Date(dateSplit[0], dateSplit[1] - 1,dateSplit[2]);
+      const dateOfEvent = dateToCompareParsed.getTime();
+
+        if(actualDateInTimestamp < dateOfEvent){
             return body += `
             <div class="card">
         <div class="image-card">
@@ -177,7 +188,7 @@ const data={
             </p>
             <div class="container-card-botton">
             <span>Price: $ ${event.price} </span>
-             <a href="./pages/details.html" class="btn btn-color">View more</a>
+             <a href="./details.html" class="btn btn-color">View more</a>
             </div>
           </div>
         </div>

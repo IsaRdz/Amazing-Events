@@ -49,8 +49,22 @@ h1 {
   width: 75%;
 }
 .container-details {
-  height: 80%;
+  height: 100%;
   margin-bottom: 10%;
+}
+.card-details {
+  background-color: #711a75;
+  border-radius: 7px;
+  height: 23rem;
+}
+.card-body-details {
+  background-color: whitesmoke;
+  border-radius: 7px;
+  height: 19.5rem;
+  padding-bottom: 2vh;
+}
+.card-text-details{
+  height: 2rem;
 }
 
 .card {
@@ -59,6 +73,15 @@ h1 {
   padding: 0;
   margin-left: 0.5vw;
   margin-right: 0.5vw;
+}
+.card-body {
+  background-color: whitesmoke;
+  border-radius: 7px;
+  height: 12rem;
+  padding-bottom: 2vh;
+}
+.card-text{
+  height: 45%;
 }
 .image-card{
   width: 17.9rem;
@@ -77,19 +100,7 @@ h1 {
 .shadow-card {
   box-shadow: 2px 2px 10px gray;
 }
-.card-details {
-  background-color: #711a75;
-  border-radius: 7px;
-}
-.card-body {
-  background-color: whitesmoke;
-  border-radius: 7px;
-  height: 12rem;
-  padding-bottom: 2vh;
-}
-.card-text{
-  height: 45%;
-}
+
 .container-form {
   width: 50%;
   margin: 0 auto;
