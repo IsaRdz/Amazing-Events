@@ -203,7 +203,7 @@ function addEvents(data) {
               ${event.description}
             </p>
             <div class="container-card-botton">
-            <span>Price: $ ${event.price} </span>
+            <small>Price: $ ${event.price} </small>
              <a href="./details.html" class="btn btn-color">View more</a>
             </div>
           </div>
