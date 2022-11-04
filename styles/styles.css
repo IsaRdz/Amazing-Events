@@ -157,12 +157,24 @@ table {
     justify-content: center;
   }
   .card {
-    width: 60%;
+    width: 85%;
   }
   .image-card{
     width: 100%;
   }
+  .card-text{
+    height: 50%;
+  }
   .navbar-brand > img {
     width: 30vw;
   }
+  .card-details{
+    height: auto;
+  }
+  .card-body-details{
+   height: auto;
+  }
+  .card-body-details > p{
+    height: auto;
+   }
 }
