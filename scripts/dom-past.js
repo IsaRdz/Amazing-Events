@@ -166,16 +166,21 @@ const data={
     const events = data.eventos.map(event =>{
         if(data.fechaActual > event.date){
             return body += `
-            <div class="card h-100">
-              <img src=${event.image} alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">${event.name}</h5>
-                <p class="card-text">
-                  ${event.description}
-                </p>
-                <a href="./pages/details.html" class="btn btn-color">View more</a>
-              </div>
+            <div class="card">
+        <div class="image-card">
+          <img src=${event.image} alt="..."/>    
+          </div>  
+          <div class="card-body">
+            <h5 class="card-title">${event.name}</h5>
+            <p class="card-text">
+              ${event.description}
+            </p>
+            <div class="container-card-botton">
+            <span>Price: $ ${event.price} </span>
+             <a href="./pages/details.html" class="btn btn-color">View more</a>
             </div>
+          </div>
+        </div>
             `; 
         }               
     });
