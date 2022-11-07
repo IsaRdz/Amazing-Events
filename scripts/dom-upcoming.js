@@ -162,6 +162,13 @@ const data={
   const dateSplit = actualDate.split("-");
   const dateToCompareParsed = new Date(dateSplit[0], dateSplit[1] - 1, dateSplit[2]);
   const actualDateInTimestamp = dateToCompareParsed.getTime();
+
+  const dateConverter = (dateToCompare) => {
+    const dateSplit = dateToCompare.split("-");
+    const dateToCompareParsed = new Date(dateSplit[0], dateSplit[1] - 1,dateSplit[2]);
+    const dateOfEvent = dateToCompareParsed.getTime();
+    return(dateOfEvent);
+  }
   
   function addEvents(data){
     let body = ``;
@@ -171,9 +178,7 @@ const data={
     const events = data.eventos.map(event =>{
 
       const dateToCompare = event.date;
-      const dateSplit = dateToCompare.split("-");
-      const dateToCompareParsed = new Date(dateSplit[0], dateSplit[1] - 1,dateSplit[2]);
-      const dateOfEvent = dateToCompareParsed.getTime();
+      dateOfEvent = dateConverter(dateToCompare);
 
         if(actualDateInTimestamp < dateOfEvent){
             return body += `
