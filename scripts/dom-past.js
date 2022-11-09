@@ -220,3 +220,13 @@ function addEvents(data) {
 }
 addEvents(data);
 
+var arrayCategories = []
+data.eventos.forEach(categories => arrayCategories.push(categories.category))
+
+arrayCategories = arrayCategories.filter((item, index) => {
+  return arrayCategories.indexOf(item) === index;
+})
+console.log(arrayCategories)
+
+
+
