@@ -109,6 +109,10 @@ h1 {
   background-color: #180a0a;
   color: whitesmoke;
 }
+.container-checks{
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
 .table {
   width: 70%;
   margin: 0 auto;
@@ -123,6 +127,9 @@ table {
   width: 100%;
   position: fixed;
   bottom: 0;
+}
+.container-serch{
+  height: 5vh;
 }
 
 @media (max-width: 768px) {

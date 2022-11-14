@@ -203,3 +203,33 @@ const data={
     tagToUpdate.innerHTML = body;
   }
   addEvents(data);
+
+  var arrayCategories = []
+data.eventos.forEach(categories => arrayCategories.push(categories.category))
+
+arrayCategories = arrayCategories.filter((item, index) => {
+  return arrayCategories.indexOf(item) === index;
+})
+console.log(arrayCategories)
+
+function addCategories(arrayCategories) {
+  let bodyCategories = ``;
+  const tagToUpdate = document.getElementById("root-categories");
+  
+  const events = arrayCategories.map((category) => {
+        
+      return (bodyCategories += `
+      <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="inlineCheckbox1"
+        value="option1"
+      />
+      <label class="form-check-label" for="inlineCheckbox1"> ${category} </label>
+    </div>
+            `);
+  });
+  tagToUpdate.innerHTML = bodyCategories;
+}
+addCategories(arrayCategories);
