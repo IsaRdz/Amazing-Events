@@ -186,7 +186,8 @@ const data={
   }
   addEvents(data);
 
-  var arrayCategories = []
+
+var arrayCategories = []
 data.eventos.forEach(categories => arrayCategories.push(categories.category))
 
 arrayCategories = arrayCategories.filter((item, index) => {
@@ -201,17 +202,31 @@ function addCategories(arrayCategories) {
   const events = arrayCategories.map((category) => {
         
       return (bodyCategories += `
-      <div class="form-check form-check-inline">
+      <form class="form-check form-check-inline" id="form-check">
       <input
         class="form-check-input"
         type="checkbox"
-        id="inlineCheckbox1"
-        value="option1"
-      />
-      <label class="form-check-label" for="inlineCheckbox1"> ${category} </label>
-    </div>
+        id="inlineCheckbox"
+        value="option"
+        />
+        <label class="form-check-label" for="inlineCheckbox">${category} </label>      
+    </form>
             `);
   });
   tagToUpdate.innerHTML = bodyCategories;
 }
 addCategories(arrayCategories);
+
+
+const formCheck = document.getElementById("form-check");
+const inputsCheckbox = document.querySelectorAll(".form-check-input")
+
+formCheck.addEventListener("click", () =>{
+    
+    inputsCheckbox.forEach((inputCheckbox) =>{
+        if(inputCheckbox.checked){
+            console.log(inputCheckbox.value);
+            
+        }        
+    });
+})
