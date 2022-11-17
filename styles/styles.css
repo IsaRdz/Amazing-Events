@@ -6,6 +6,10 @@
 }
 body {
   height: 100%;
+  margin: 0;
+  position: relative;
+  padding-bottom: 3em;
+  min-height: 100vh;
 }
 .title-color {
   background-color: #711a75;
@@ -38,12 +42,19 @@ h1 {
   color: #180a0a;
   border: 1px solid #f582a7;
 }
+footer{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
 .container-footer {
   background-color: #711a75;
   width: 100%;
   color: whitesmoke;
   display: flex;
   flex-wrap: nowrap;
+  
 }
 .container-icons {
   width: 75%;
@@ -148,7 +159,6 @@ table {
     margin-top: 2vh;
   }
 }
-
 
 @media (max-width: 625px) {
   .container-footer {
