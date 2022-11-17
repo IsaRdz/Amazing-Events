@@ -187,13 +187,12 @@ const data={
   addEvents(data);
 
 
-var arrayCategories = []
-data.eventos.forEach(categories => arrayCategories.push(categories.category))
-
+var arrayCategories = [];
+data.eventos.forEach(categories => arrayCategories.push(categories.category));
 arrayCategories = arrayCategories.filter((item, index) => {
   return arrayCategories.indexOf(item) === index;
 })
-console.log(arrayCategories)
+console.log("arrayCategories", arrayCategories)
 
 function addCategories(arrayCategories) {
   let bodyCategories = ``;
@@ -207,7 +206,7 @@ function addCategories(arrayCategories) {
         class="form-check-input"
         type="checkbox"
         id="inlineCheckbox"
-        value="option"
+        value=${category}
         />
         <label class="form-check-label" for="inlineCheckbox">${category} </label>      
     </form>
@@ -219,14 +218,61 @@ addCategories(arrayCategories);
 
 
 const formCheck = document.getElementById("form-check");
-const inputsCheckbox = document.querySelectorAll(".form-check-input")
-
+const inputsCheckbox = document.querySelectorAll(".form-check-input");
 formCheck.addEventListener("click", () =>{
-    
+  var categoriesToShow = [];
+
     inputsCheckbox.forEach((inputCheckbox) =>{
         if(inputCheckbox.checked){
             console.log(inputCheckbox.value);
-            
+            categoriesToShow.push(inputCheckbox.value);
         }        
     });
+    console.log("categoriesToShow",categoriesToShow)
+    showEvents(data, categoriesToShow)
 })
+
+
+function showEvents(data, categoriesToShow){
+  let body = ``;
+  var notFoundArray = [];
+  const tagToUpdate = document.getElementById("root-card");
+  
+  const events = data.eventos.map(event =>{
+
+    for(let i=0; i < categoriesToShow.length ; i++){
+      if(event.category == categoriesToShow[i]){
+        return body += `
+        <div class="card">
+        <div class="image-card">
+          <img src=${event.image} alt="..."/>    
+          </div>  
+          <div class="card-body">
+            <h5 class="card-title">${event.name}</h5>
+            <p class="card-text">
+              ${event.description}
+            </p>
+            <div class="container-card-botton">
+            <span>Price: $ ${event.price} </span>
+             <a href="./pages/details.html" class="btn btn-color">View more</a>
+            </div>
+          </div>
+        </div>
+        `;
+      }else{
+        notFoundArray.push(categoriesToShow[i]);
+      }     
+    }           
+  });
+  notFoundCategories(notFoundArray);
+  tagToUpdate.innerHTML = body;
+}
+
+function notFoundCategories(notFoundArray){
+  
+  notFoundArray = notFoundArray.filter((item, index) => {
+    return notFoundArray.indexOf(item) === index;
+  })
+  console.log("Not found array", notFoundArray)
+}
+
