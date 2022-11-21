@@ -198,14 +198,13 @@ function addCategories(arrayCategories) {
   const tagToUpdate = document.getElementById("root-categories");
   
   const events = arrayCategories.map((category) => {
-        
       return (bodyCategories += `
       <form class="form-check form-check-inline" id="form-check">
       <input
         class="form-check-input"
         type="checkbox"
         id="inlineCheckbox"
-        value=${category}
+        value=${category.replace(' ','-')}
         />
         <label class="form-check-label" for="inlineCheckbox">${category} </label>      
     </form>
@@ -216,11 +215,12 @@ function addCategories(arrayCategories) {
 addCategories(arrayCategories);
 
 
-const formCheck = document.getElementById("form-check");
+const formCheck = document.getElementById("root-categories");
 const inputsCheckbox = document.querySelectorAll(".form-check-input");
+
 formCheck.addEventListener("click", () =>{
   var categoriesToShow = [];
-
+    
     inputsCheckbox.forEach((inputCheckbox) =>{
         if(inputCheckbox.checked){
             console.log(inputCheckbox.value);
@@ -240,7 +240,7 @@ function showEvents(data, categoriesToShow){
   const events = data.eventos.map(event =>{
 
     for(let i=0; i < categoriesToShow.length ; i++){
-      if(event.category == categoriesToShow[i]){
+      if(event.category == categoriesToShow[i].replace('-',' ')){
         return body += `
         <div class="card">
         <div class="image-card">
