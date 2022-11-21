@@ -23,6 +23,10 @@ h1 {
   align-items: center;
   padding: 3vh;
 }
+.hidden-title{
+  text-align: center;
+  display: none;
+}
 .btn-color {
   background-color: #f582a7;
   color: #180a0a;
@@ -42,6 +46,9 @@ h1 {
   color: #180a0a;
   border: 1px solid #f582a7;
 }
+.hidden {
+  display: none;
+}
 footer{
   width: 100%;
   position: absolute;
@@ -53,8 +60,7 @@ footer{
   width: 100%;
   color: whitesmoke;
   display: flex;
-  flex-wrap: nowrap;
-  
+  flex-wrap: nowrap;  
 }
 .container-icons {
   width: 75%;

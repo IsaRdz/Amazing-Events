@@ -161,7 +161,6 @@ const data={
   function addEvents(data){
     let body = ``;
     const tagToUpdate = document.getElementById("root-card");
-    console.log("tagToUpdate", tagToUpdate);
 
     const events = data.eventos.map(event =>{
         return body += `
@@ -269,10 +268,30 @@ function showEvents(data, categoriesToShow){
 }
 
 function notFoundCategories(notFoundArray){
-  
   notFoundArray = notFoundArray.filter((item, index) => {
     return notFoundArray.indexOf(item) === index;
   })
   console.log("Not found array", notFoundArray)
 }
 
+// SEARCH
+
+const inputSearchEvent = document.getElementById("input-search-event");
+const eventListItems = document.querySelectorAll(".card");
+const hiddenTitle = document.getElementById("hidden-title");
+
+console.log("eventListItems", eventListItems)
+
+inputSearchEvent.addEventListener("keyup",(event) => {
+  console.log(event.target.value);
+
+  eventListItems.forEach((body) => {
+    
+    body.textContent.toLowerCase().includes(event.target.value.toLowerCase())
+    ? (body.classList.remove("hidden"), hiddenTitle.style.display = 'none')
+    : body.classList.add("hidden")
+    ? body.textContent == 'undefined'
+    : hiddenTitle.style.display = 'block';
+  })
+
+})
