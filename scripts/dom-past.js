@@ -190,9 +190,8 @@ const dateConverter = (dateToCompare) => {
 function addEvents(data) {
   let body = ``;
   const tagToUpdate = document.getElementById("root-card");
-  console.log("tagToUpdate", tagToUpdate);
-
-  const events = data.eventos.map((event) => {
+ 
+    const events = data.eventos.map((event) => {
     const dateToCompare = event.date;
     dateOfEvent = dateConverter(dateToCompare);
     
@@ -216,6 +215,7 @@ function addEvents(data) {
             `);
     }
   });
+  
   tagToUpdate.innerHTML = body;
 }
 addEvents(data);
@@ -232,7 +232,7 @@ function addCategories(arrayCategories) {
   let bodyCategories = ``;
   const tagToUpdate = document.getElementById("root-categories");
   
-  const events = arrayCategories.map((category) => {
+  const categories = arrayCategories.map((category) => {
         
       return (bodyCategories += `
       <div class="form-check form-check-inline">
@@ -240,7 +240,7 @@ function addCategories(arrayCategories) {
         class="form-check-input"
         type="checkbox"
         id="inlineCheckbox1"
-        value="option1"
+        value=${category.replace(' ','-')}
       />
       <label class="form-check-label" for="inlineCheckbox1"> ${category} </label>
     </div>
@@ -250,3 +250,76 @@ function addCategories(arrayCategories) {
 }
 addCategories(arrayCategories);
 
+const formCheck = document.getElementById("root-categories");
+const inputsCheckbox = document.querySelectorAll(".form-check-input");
+
+formCheck.addEventListener("click", () =>{
+  var categoriesToShow = [];
+    
+    inputsCheckbox.forEach((inputCheckbox) =>{
+        if(inputCheckbox.checked){
+            console.log(inputCheckbox.value);
+            categoriesToShow.push(inputCheckbox.value);
+        }        
+    });
+    console.log("categoriesToShow",categoriesToShow)
+    showEvents(categoriesToShow)
+})
+
+const hiddenTitle = document.getElementById("hidden-title");
+
+function showEvents(categoriesToShow){
+  let body = ``;
+  const tagToUpdate = document.getElementById("root-card");
+  
+  const eventsChecked = data.eventos.map(event =>{
+
+    for(let i=0; i < categoriesToShow.length; i++){
+      if(event.category == categoriesToShow[i].replace('-',' ')){
+        hiddenTitle.style.display = 'none';
+        return body += `
+        <div class="card">
+        <div class="image-card">
+          <img src=${event.image} alt="..."/>    
+          </div>  
+          <div class="card-body">
+            <h5 class="card-title">${event.name}</h5>
+            <p class="card-text">
+              ${event.description}
+            </p>
+            <div class="container-card-botton">
+            <span>Price: $ ${event.price} </span>
+             <a href="./pages/details.html" class="btn btn-color">View more</a>
+            </div>
+          </div>
+        </div>
+        `;
+      }else{
+        hiddenTitle.style.display = 'block';
+      }     
+    }           
+  });
+  
+  tagToUpdate.innerHTML = body;
+}
+
+// SEARCH
+
+const inputSearchEvent = document.getElementById("input-search-event");
+const eventListItems = document.querySelectorAll(".card");
+
+console.log("eventListItems", eventListItems)
+
+inputSearchEvent.addEventListener("keyup",(event) => {
+  console.log(event.target.value);
+
+  eventListItems.forEach((body) => {
+    
+    body.textContent.toLowerCase().includes(event.target.value.toLowerCase())
+    ? (body.classList.remove("hidden"), hiddenTitle.style.display = 'none')
+    : body.classList.add("hidden")
+    ? body.textContent == 'undefined'
+    : hiddenTitle.style.display = 'block';
+  })
+
+})

@@ -228,11 +228,11 @@ formCheck.addEventListener("click", () =>{
         }        
     });
     console.log("categoriesToShow",categoriesToShow)
-    showEvents(data, categoriesToShow)
+    showEvents(categoriesToShow)
 })
 
-
-function showEvents(data, categoriesToShow){
+const hiddenTitle = document.getElementById("hidden-title");
+function showEvents(categoriesToShow){
   let body = ``;
   var notFoundArray = [];
   const tagToUpdate = document.getElementById("root-card");
@@ -241,6 +241,7 @@ function showEvents(data, categoriesToShow){
 
     for(let i=0; i < categoriesToShow.length ; i++){
       if(event.category == categoriesToShow[i].replace('-',' ')){
+        hiddenTitle.style.display = 'none';
         return body += `
         <div class="card">
         <div class="image-card">
@@ -259,26 +260,18 @@ function showEvents(data, categoriesToShow){
         </div>
         `;
       }else{
-        notFoundArray.push(categoriesToShow[i]);
+        hiddenTitle.style.display = 'block';
       }     
     }           
   });
-  notFoundCategories(notFoundArray);
+  
   tagToUpdate.innerHTML = body;
-}
-
-function notFoundCategories(notFoundArray){
-  notFoundArray = notFoundArray.filter((item, index) => {
-    return notFoundArray.indexOf(item) === index;
-  })
-  console.log("Not found array", notFoundArray)
 }
 
 // SEARCH
 
 const inputSearchEvent = document.getElementById("input-search-event");
 const eventListItems = document.querySelectorAll(".card");
-const hiddenTitle = document.getElementById("hidden-title");
 
 console.log("eventListItems", eventListItems)
 
