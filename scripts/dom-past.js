@@ -187,6 +187,8 @@ const dateConverter = (dateToCompare) => {
   return(dateOfEvent);
 }
 
+const pastEvents = [];
+
 function addEvents(data) {
   let body = ``;
   const tagToUpdate = document.getElementById("root-card");
@@ -196,6 +198,7 @@ function addEvents(data) {
     dateOfEvent = dateConverter(dateToCompare);
     
     if (actualDateInTimestamp > dateOfEvent) {
+      pastEvents.push(event);
       return (body += `
             <div class="card">
         <div class="image-card">
@@ -215,7 +218,7 @@ function addEvents(data) {
             `);
     }
   });
-  
+  console.log("pastEvents",pastEvents)
   tagToUpdate.innerHTML = body;
 }
 addEvents(data);
@@ -272,7 +275,7 @@ function showEvents(categoriesToShow){
   let body = ``;
   const tagToUpdate = document.getElementById("root-card");
   
-  const eventsChecked = data.eventos.map(event =>{
+  const eventsChecked = pastEvents.map(event =>{
 
     for(let i=0; i < categoriesToShow.length; i++){
       if(event.category == categoriesToShow[i].replace('-',' ')){
