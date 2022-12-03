@@ -175,112 +175,44 @@ const data = {
   ],
 };
 
-const actualDate = data.fechaActual;
-const dateSplit = actualDate.split("-");
-const dateToCompareParsed = new Date(dateSplit[0], dateSplit[1] - 1, dateSplit[2]);
-const actualDateInTimestamp = dateToCompareParsed.getTime();
-
 const dateConverter = (dateToCompare) => {
   const dateSplit = dateToCompare.split("-");
-  const dateToCompareParsed = new Date(dateSplit[0], dateSplit[1] - 1,dateSplit[2]);
+  const dateToCompareParsed = new Date(
+    dateSplit[0],
+    dateSplit[1] - 1,
+    dateSplit[2]
+  );
   const dateOfEvent = dateToCompareParsed.getTime();
-  return(dateOfEvent);
-}
+  return dateOfEvent;
+};
 
+const actualDateInTimestamp = dateConverter(data.fechaActual);
+
+const allEvents = data.eventos;
 const pastEvents = [];
+const upcomingEvents = [];
 
-function addEvents(data) {
+const sectionHome = document.getElementById("section-home");
+const sectionPast = document.getElementById("section-past");
+const sectionUpcoming = document.getElementById("section-upcoming");
+
+const events = data.eventos.map((event) => {
+  const dateToCompare = event.date;
+  dateOfEvent = dateConverter(dateToCompare);
+
+  if (actualDateInTimestamp > dateOfEvent) {
+    pastEvents.push(event);
+  } else {
+    upcomingEvents.push(event);
+  }
+});
+
+function showEvents(eventsArray, section) {
   let body = ``;
-  const tagToUpdate = document.getElementById("root-card");
- 
-    const events = data.eventos.map((event) => {
-    const dateToCompare = event.date;
-    dateOfEvent = dateConverter(dateToCompare);
-    
-    if (actualDateInTimestamp > dateOfEvent) {
-      pastEvents.push(event);
-      return (body += `
-            <div class="card">
-        <div class="image-card">
-          <img src=${event.image} alt="..."/>    
-          </div>  
-          <div class="card-body">
-            <h5 class="card-title">${event.name}</h5>
-            <p class="card-text">
-              ${event.description}
-            </p>
-            <div class="container-card-botton">
-            <small>Price: $ ${event.price} </small>
-             <a href="./details.html" class="btn btn-color">View more</a>
-            </div>
-          </div>
-        </div>
-            `);
-    }
-  });
-  console.log("pastEvents",pastEvents)
-  tagToUpdate.innerHTML = body;
-}
-addEvents(data);
+  console.log("eventsArray", eventsArray.name);
 
-var arrayCategories = []
-data.eventos.forEach(categories => arrayCategories.push(categories.category))
-
-arrayCategories = arrayCategories.filter((item, index) => {
-  return arrayCategories.indexOf(item) === index;
-})
-console.log(arrayCategories)
-
-function addCategories(arrayCategories) {
-  let bodyCategories = ``;
-  const tagToUpdate = document.getElementById("root-categories");
-  
-  const categories = arrayCategories.map((category) => {
-        
-      return (bodyCategories += `
-      <div class="form-check form-check-inline">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="inlineCheckbox1"
-        value=${category.replace(' ','-')}
-      />
-      <label class="form-check-label" for="inlineCheckbox1"> ${category} </label>
-    </div>
-            `);
-  });
-  tagToUpdate.innerHTML = bodyCategories;
-}
-addCategories(arrayCategories);
-
-const formCheck = document.getElementById("root-categories");
-const inputsCheckbox = document.querySelectorAll(".form-check-input");
-
-formCheck.addEventListener("click", () =>{
-  var categoriesToShow = [];
-    
-    inputsCheckbox.forEach((inputCheckbox) =>{
-        if(inputCheckbox.checked){
-            console.log(inputCheckbox.value);
-            categoriesToShow.push(inputCheckbox.value);
-        }        
-    });
-    console.log("categoriesToShow",categoriesToShow)
-    showEvents(categoriesToShow)
-})
-
-const hiddenTitle = document.getElementById("hidden-title");
-
-function showEvents(categoriesToShow){
-  let body = ``;
-  const tagToUpdate = document.getElementById("root-card");
-  
-  const eventsChecked = pastEvents.map(event =>{
-
-    for(let i=0; i < categoriesToShow.length; i++){
-      if(event.category == categoriesToShow[i].replace('-',' ')){
-        hiddenTitle.style.display = 'none';
-        return body += `
+  eventsArray.map((event) => {
+    return (body += `
         <div class="card">
         <div class="image-card">
           <img src=${event.image} alt="..."/>    
@@ -296,14 +228,119 @@ function showEvents(categoriesToShow){
             </div>
           </div>
         </div>
-        `;
-      }else{
-        hiddenTitle.style.display = 'block';
-      }     
-    }           
+        `);
   });
-  
-  tagToUpdate.innerHTML = body;
+  section.innerHTML = body;
+}
+
+let currentURL = window.location.pathname.split("/").pop();
+
+if (currentURL == "index.html") {
+  showEvents(allEvents, sectionHome);
+} else if (currentURL == "past-events.html") {
+  showEvents(pastEvents, sectionPast);
+} else if (currentURL == "upcoming-events.html") {
+  showEvents(upcomingEvents, sectionUpcoming);
+}
+
+var arrayCategories = [];
+data.eventos.forEach((categories) => arrayCategories.push(categories.category));
+arrayCategories = arrayCategories.filter((item, index) => {
+  return arrayCategories.indexOf(item) === index;
+});
+console.log("arrayCategories", arrayCategories);
+
+function addCategories(arrayCategories) {
+  let bodyCategories = ``;
+  const tagToUpdate = document.getElementById("root-categories");
+
+  const events = arrayCategories.map((category) => {
+    return (bodyCategories += `
+      <form class="form-check form-check-inline" id="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="inlineCheckbox"
+        value=${category.replace(" ", "-")}
+        />
+        <label class="form-check-label" for="inlineCheckbox">${category} </label>      
+    </form>
+            `);
+  });
+  tagToUpdate.innerHTML = bodyCategories;
+}
+addCategories(arrayCategories);
+
+const formCheck = document.getElementById("root-categories");
+const inputsCheckbox = document.querySelectorAll(".form-check-input");
+
+formCheck.addEventListener("click", () => {
+  var categoriesToShow = [];
+
+  inputsCheckbox.forEach((inputCheckbox) => {
+    if (inputCheckbox.checked) {
+      console.log("Checkox selected:", inputCheckbox.value);
+      categoriesToShow.push(inputCheckbox.value);
+    }
+  });
+  eventsChecked(categoriesToShow);
+});
+
+const hiddenTitle = document.getElementById("hidden-title");
+
+function eventsChecked(categoriesToShow) {
+  const eventsChecked = [];
+  let flag = 0;
+
+  if (currentURL == "index.html") {
+    allEvents.map((event) => {
+      for (let i = 0; i < categoriesToShow.length; i++) {
+        if (categoriesToShow[i] == event.category.replace(" ", "-")) {
+          eventsChecked.push(event);
+          console.log("eventsChecked", eventsChecked);
+          flag = 1;
+        }
+      }
+    });
+    showEvents(eventsChecked, sectionHome);
+    if (flag == 0 && categoriesToShow.length != 0) {
+      hiddenTitle.style.display = "block";
+    } else if (categoriesToShow.length == 0) {
+      showEvents(allEvents, sectionHome);
+    }
+  } else if (currentURL == "past-events.html") {
+    pastEvents.map((event) => {
+      for (let i = 0; i < categoriesToShow.length; i++) {
+        if (categoriesToShow[i] == event.category.replace(" ", "-")) {
+          eventsChecked.push(event);
+          console.log("eventsChecked", eventsChecked);
+          flag = 1;
+        }
+      }
+    });
+    showEvents(eventsChecked, sectionPast);
+    if (flag == 0 && categoriesToShow.length != 0) {
+      hiddenTitle.style.display = "block";
+    } else if (categoriesToShow.length == 0) {
+      showEvents(pastEvents, sectionPast);
+    }
+  } else if (currentURL == "upcoming-events.html") {
+    upcomingEvents.map((event) => {
+      for (let i = 0; i < categoriesToShow.length; i++) {
+        if (categoriesToShow[i] == event.category.replace(" ", "-")) {
+          eventsChecked.push(event);
+          console.log("eventsChecked", eventsChecked);
+          flag = 1;
+        }
+      }
+    });
+    showEvents(eventsChecked, sectionUpcoming);
+    if (flag == 0 && categoriesToShow.length != 0) {
+      hiddenTitle.style.display = "block";
+    } else if (categoriesToShow.length == 0) {
+      showEvents(upcomingEvents, sectionUpcoming);
+    }
+  }
 }
 
 // SEARCH
@@ -311,18 +348,16 @@ function showEvents(categoriesToShow){
 const inputSearchEvent = document.getElementById("input-search-event");
 const eventListItems = document.querySelectorAll(".card");
 
-console.log("eventListItems", eventListItems)
+console.log("eventListItems", eventListItems);
 
-inputSearchEvent.addEventListener("keyup",(event) => {
+inputSearchEvent.addEventListener("keyup", (event) => {
   console.log(event.target.value);
 
   eventListItems.forEach((body) => {
-    
     body.textContent.toLowerCase().includes(event.target.value.toLowerCase())
-    ? (body.classList.remove("hidden"), hiddenTitle.style.display = 'none')
-    : body.classList.add("hidden")
-    ? body.textContent == 'undefined'
-    : hiddenTitle.style.display = 'block';
-  })
-
-})
+      ? (body.classList.remove("hidden"), (hiddenTitle.style.display = "none"))
+      : body.classList.add("hidden")
+      ? body.textContent == "undefined"
+      : (hiddenTitle.style.display = "block");
+  });
+});
