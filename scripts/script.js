@@ -207,9 +207,26 @@ const events = data.eventos.map((event) => {
   }
 });
 
+let currentURL = window.location.pathname.split("/").pop();
+
+if (currentURL == "index.html") {
+  showEvents(allEvents, sectionHome);
+} else if (currentURL == "past-events.html") {
+  showEvents(pastEvents, sectionPast);
+} else if (currentURL == "upcoming-events.html") {
+  showEvents(upcomingEvents, sectionUpcoming);
+}
+
 function showEvents(eventsArray, section) {
   let body = ``;
   console.log("eventsArray", eventsArray.name);
+  let URL = "";
+
+  if (section.id == "section-home") {
+    URL = "./pages/details.html";
+  } else {
+    URL = "./details.html";
+  }
 
   eventsArray.map((event) => {
     return (body += `
@@ -224,23 +241,13 @@ function showEvents(eventsArray, section) {
             </p>
             <div class="container-card-botton">
             <span>Price: $ ${event.price} </span>
-             <a href="./pages/details.html" class="btn btn-color">View more</a>
+             <a href="${URL}?name=${event.name.replace(/\s/g,"")}" class="btn btn-color" target="_blank">View more</a>
             </div>
           </div>
         </div>
         `);
   });
   section.innerHTML = body;
-}
-
-let currentURL = window.location.pathname.split("/").pop();
-
-if (currentURL == "index.html") {
-  showEvents(allEvents, sectionHome);
-} else if (currentURL == "past-events.html") {
-  showEvents(pastEvents, sectionPast);
-} else if (currentURL == "upcoming-events.html") {
-  showEvents(upcomingEvents, sectionUpcoming);
 }
 
 var arrayCategories = [];
@@ -361,3 +368,4 @@ inputSearchEvent.addEventListener("keyup", (event) => {
       : (hiddenTitle.style.display = "block");
   });
 });
+

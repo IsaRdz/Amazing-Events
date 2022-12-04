@@ -72,18 +72,17 @@ footer{
 .card-details {
   background-color: #711a75;
   border-radius: 7px;
-  height: 23rem;
+  /*height: 23rem;*/
 }
 .card-body-details {
   background-color: whitesmoke;
   border-radius: 7px;
-  height: 19.5rem;
+  /*height: 19.5rem;*/
   padding-bottom: 2vh;
 }
-.card-text-details{
-  height: 2rem;
+.card-body-details > p{
+  margin-bottom: 1vh;
 }
-
 .card {
   width: 18rem;
   height: 24rem;
@@ -96,6 +95,13 @@ footer{
   border-radius: 7px;
   height: 12rem;
   padding-bottom: 2vh;
+}
+.card-title{
+  text-align: center;
+  padding-bottom: 1vh;
+}
+span{
+  font-weight: bold;
 }
 .card-text{
   height: 45%;
