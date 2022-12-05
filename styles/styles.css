@@ -131,6 +131,7 @@ span{
   border-radius: 10px;
   background-color: #180a0a;
   color: whitesmoke;
+  
 }
 .container-checks{
   display: grid;
@@ -143,9 +144,14 @@ span{
 td {
   height: 30px;
 }
+.container-stats{
+  margin-bottom: 5vh;
+  padding-bottom: 5vh;
+}
 table {
   box-shadow: 2px 2px 5px #180a0a;
-}
+  height: 100%;
+  }
 .f-bottom{
   width: 100%;
   position: fixed;
@@ -158,6 +164,9 @@ table {
 @media (max-width: 768px) {
   .container-form {
     width: 80%;
+    height: 100%;
+    padding-bottom: 5vh;
+    margin-bottom: 5vh;
   }
   .f-bottom{
     width: 100%;
