@@ -177,7 +177,7 @@ const data = {
 
   const sectionDetails = document.getElementById("section-details");
 
-  const nameEvent = window.location.search.split("=").pop();
+  const nameEvent = window.location.search.split("=").pop().replace("%27","");
   
   console.log("nameEvent", nameEvent)
   renderDetails(nameEvent);
@@ -189,7 +189,7 @@ function renderDetails(nameEvent) {
   data.eventos.map((event) => {
     
     try{
-        if (event.name.replaceAll(" ", "") == nameEvent) {
+        if (event.name.replaceAll(" ", "").replace("'","") == nameEvent) {
             console.log(event.name.replaceAll(" ", ""))
             console.log(nameEvent)
             return (bodyDetails += `
