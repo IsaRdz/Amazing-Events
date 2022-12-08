@@ -174,156 +174,213 @@ const data = {
     },
   ],
 };
-
+ 
   const sectionStats = document.getElementById("section-stats");
   bodyStats = ``;
-  
-  function renderStats(){
 
-    bodyStats +=`
-        <table class="table my-3 table-bordered">
-            <thead class="table table-color">
-              <tr>
-                <th colspan="3">Events statistics</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Events with the highest percentaje of attendance</td>
-                <td>Events with the lowest percentaje of attendance</td>
-                <td>Event with larger capacity</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-            <thead class="table table-color">
-              <tr>
-                <th colspan="3">Upcoming events statistics by category</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Categories</td>
-                <td>Revenues</td>
-                <td>Percentage of attendance</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-            <thead class="table table-color">
-              <tr>
-                <th colspan="3">Past events statistics by category</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Categories</td>
-                <td>Revenues</td>
-                <td>Percentage of attendance</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        `;
+  const dateConverter = (dateToCompare) => {
+    const dateSplit = dateToCompare.split("-");
+    const dateToCompareParsed = new Date(
+      dateSplit[0],
+      dateSplit[1] - 1,
+      dateSplit[2]
+    );
+    const dateOfEvent = dateToCompareParsed.getTime();
+    return dateOfEvent;
+  };
+  
+  const actualDateInTimestamp = dateConverter(data.fechaActual);
+  const allEvents = data.eventos;
+  let pastEvents = [];
+  let upcomingEvents = [];
+  
+  const events = allEvents.map((event) => {
+    const dateToCompare = event.date;
+    dateOfEvent = dateConverter(dateToCompare);
+  
+    if (actualDateInTimestamp > dateOfEvent) {
+      pastEvents.push(event);
+    } else {
+      upcomingEvents.push(event);
+    }
+  });
+  
+  let arrayCategories = [];
+  allEvents.forEach((categories) => arrayCategories.push(categories.category));
+  arrayCategories = arrayCategories.filter((item, index) => {
+    return arrayCategories.indexOf(item) === index;
+  });
+  console.log("arrayCategories", arrayCategories);
+
+  
+  function eventsStatistics(){
+    let assistance = [];
+    let largerCapacity = [];
+    
+    pastEvents.map((event) => {
+      let eventStats = {
+        "event" : event.name,
+        "percenjate" : (event.assistance/event.capacity)*100,
+        "capacity": event.capacity
+      }
+      assistance.push(eventStats);
+
+    });
+    console.log("assistance",assistance);
+
+    
+  }
+  eventsStatistics();
+
+  function upcomingRevenues(){
+    let upcomingStats = [];
+
+    for(let i=0; i<arrayCategories.length;i++){
+      let category;
+      let revenue = 0;
+      let percentaje = 0;
+      //console.log("category: ",arrayCategories[i]);
+      upcomingEvents.map((event) => {
+        if(event.category == arrayCategories[i]){
+          category = arrayCategories[i];
+          revenue += event.estimate * event.price;
+          percentaje += ( event.estimate / event.capacity ) * 100;
+        } 
+      })
+      if(category == undefined){
+          category = arrayCategories[i];
+          revenue = 0;
+          percentaje = 0;
+        }
+      
+      //console.log(`category: ${category}, revenue: ${revenue}, percentaje: ${percentaje} `)
+      let stats = {
+        "category" : category,
+        "revenue" : revenue,
+        "percentaje" : percentaje
+      }
+      upcomingStats.push(stats);
+    }
+    console.log("upcomingStats", upcomingStats);
+    renderStats(upcomingStats);
+  }
+  upcomingRevenues();
+
+  function pastsRevenues(){
+    let pastsStats = [];
+
+    for(let i=0; i<arrayCategories.length;i++){
+      let category;
+      let revenue = 0;
+      let percentaje = 0;
+      //console.log("category: ",arrayCategories[i]);
+      pastEvents.map((event) => {
+        if(event.category == arrayCategories[i]){
+          category = arrayCategories[i];
+          revenue += event.assistance * event.price;
+          percentaje += ( event.assistance / event.capacity ) * 100;
+        } 
+      })
+      if(category == undefined){
+          category = arrayCategories[i];
+          revenue = 0;
+          percentaje = 0;
+        }
+      
+      //console.log(`category: ${category}, revenue: ${revenue}, percentaje: ${percentaje} `)
+      let stats = {
+        "category" : category,
+        "revenue" : revenue,
+        "percentaje" : percentaje
+      }
+      pastsStats.push(stats);
+    }
+    console.log("pastsStats", pastsStats);
+    renderStats(pastsStats);
+  }
+  pastsRevenues();
+
+  function renderStats(upcomingStats){
+
+    allEvents.map((event) =>{
+      bodyStats +=`
+      <table class="table my-3 table-bordered">
+          <thead class="table table-color">
+            <tr>
+              <th colspan="3">Events statistics</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Events with the highest percentaje of attendance</td>
+              <td>Events with the lowest percentaje of attendance</td>
+              <td>Event with larger capacity</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead class="table table-color">
+            <tr>
+              <th colspan="3">Upcoming events statistics by category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Categories</td>
+              <td>Revenues</td>
+              <td>Percentage of attendance</td>
+            </tr>
+            <tr>
+              <td>  </td>
+              <td> $ </td>
+              <td> % </td>
+            </tr>
+          </tbody>
+          <thead class="table table-color">
+            <tr>
+              <th colspan="3">Past events statistics by category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Categories</td>
+              <td>Revenues</td>
+              <td>Percentage of attendance</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+    });
+   
     sectionStats.innerHTML = bodyStats;
 }
 
 renderStats();
-
-const dateConverter = (dateToCompare) => {
-  const dateSplit = dateToCompare.split("-");
-  const dateToCompareParsed = new Date(
-    dateSplit[0],
-    dateSplit[1] - 1,
-    dateSplit[2]
-  );
-  const dateOfEvent = dateToCompareParsed.getTime();
-  return dateOfEvent;
-};
-
-const actualDateInTimestamp = dateConverter(data.fechaActual);
-
-const allEvents = data.eventos;
-const pastEvents = [];
-const upcomingEvents = [];
-
-const sectionHome = document.getElementById("section-home");
-const sectionPast = document.getElementById("section-past");
-const sectionUpcoming = document.getElementById("section-upcoming");
-
-const events = data.eventos.map((event) => {
-  const dateToCompare = event.date;
-  dateOfEvent = dateConverter(dateToCompare);
-
-  if (actualDateInTimestamp > dateOfEvent) {
-    pastEvents.push(event);
-  } else {
-    upcomingEvents.push(event);
-  }
-});
-
-var arrayCategories = [];
-data.eventos.forEach((categories) => arrayCategories.push(categories.category));
-arrayCategories = arrayCategories.filter((item, index) => {
-  return arrayCategories.indexOf(item) === index;
-});
-console.log("arrayCategories", arrayCategories);
-
-var category;
-var revenue;
-var percentaje;
-
-function upcomingRevenues(){
-  
-  for(let i=0; i<arrayCategories.length;i++){
-    upcomingEvents.map( (event) => {
-      if(event.category == arrayCategories[i]){
-        category = event.category;
-        revenue = (event.estimate)*(event.price);
-        console.log(`Category ${category} - Revenue ${revenue}`)
-      }
-    })
-  }
-  
-}
-upcomingRevenues()
