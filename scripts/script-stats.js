@@ -175,8 +175,14 @@ const data = {
   ],
 };
  
-  const sectionStats = document.getElementById("section-stats");
-  bodyStats = ``;
+
+  /*const getDataEvents = async () => {
+  const response = await fetch("../scripts/events.json");
+  const data = await response.json();
+  console.log("data",data);
+}
+getDataEvents();*/
+
 
   const dateConverter = (dateToCompare) => {
     const dateSplit = dateToCompare.split("-");
@@ -215,20 +221,28 @@ const data = {
   
   function eventsStatistics(){
     let assistance = [];
-    let largerCapacity = [];
+    let highestAssist = [];
+    let lowestAssist = [];
+    let c;
     
     pastEvents.map((event) => {
       let eventStats = {
         "event" : event.name,
-        "percenjate" : (event.assistance/event.capacity)*100,
+        "percentaje" : (event.assistance/event.capacity)*100,
         "capacity": event.capacity
       }
       assistance.push(eventStats);
-
     });
+    
+    c = Math.round(assistance.length * 0.5);
+    console.log("cantidad 50%",c);
+    
+    highestAssist = assistance.sort(function(a,b){return b.percentaje - a.percentaje}).slice(0, c);
     console.log("assistance",assistance);
 
-    
+
+    renderStatistics(highestAssist);
+
   }
   eventsStatistics();
 
@@ -257,12 +271,12 @@ const data = {
       let stats = {
         "category" : category,
         "revenue" : revenue,
-        "percentaje" : percentaje
+        "percentaje" : Math.round(percentaje) 
       }
       upcomingStats.push(stats);
     }
     console.log("upcomingStats", upcomingStats);
-    renderStats(upcomingStats);
+    renderUpcomingStats(upcomingStats);
   }
   upcomingRevenues();
 
@@ -291,96 +305,62 @@ const data = {
       let stats = {
         "category" : category,
         "revenue" : revenue,
-        "percentaje" : percentaje
+        "percentaje" : Math.round(percentaje) 
       }
       pastsStats.push(stats);
     }
     console.log("pastsStats", pastsStats);
-    renderStats(pastsStats);
+    renderPastStats(pastsStats);
   }
   pastsRevenues();
 
-  function renderStats(upcomingStats){
 
-    allEvents.map((event) =>{
+  
+  function renderStatistics(assistance){
+    console.log("render assistance",assistance);
+    const eventsStatistics = document.getElementById("section-events-statistics");
+    bodyStats = ``;
+
+    for(let assist of assistance){
       bodyStats +=`
-      <table class="table my-3 table-bordered">
-          <thead class="table table-color">
-            <tr>
-              <th colspan="3">Events statistics</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Events with the highest percentaje of attendance</td>
-              <td>Events with the lowest percentaje of attendance</td>
-              <td>Event with larger capacity</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-          <thead class="table table-color">
-            <tr>
-              <th colspan="3">Upcoming events statistics by category</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Categories</td>
-              <td>Revenues</td>
-              <td>Percentage of attendance</td>
-            </tr>
-            <tr>
-              <td>  </td>
-              <td> $ </td>
-              <td> % </td>
-            </tr>
-          </tbody>
-          <thead class="table table-color">
-            <tr>
-              <th colspan="3">Past events statistics by category</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Categories</td>
-              <td>Revenues</td>
-              <td>Percentage of attendance</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      `;
-    });
-   
-    sectionStats.innerHTML = bodyStats;
-}
+      <tr>
+        <td>${assist.event}: ${ Math.round(assist.percentaje)}%</td>
+        <td>${assist.event}: ${ Math.round(assist.percentaje)}%</td>
+        <td>${assist.event}: ${assist.capacity}</td> 
+      </tr>
+    `;
+    }      
+    eventsStatistics.innerHTML = bodyStats;
+  }
 
-renderStats();
+  function renderUpcomingStats(upcomingStats){
+    const sectionUpcomingStats = document.getElementById("section-upcoming-stats");
+    body = ``;
+
+    for(let stats of upcomingStats){
+      body += `
+      <tr>
+        <td> ${stats.category} </td>
+        <td> $ ${stats.revenue} </td>
+        <td> ${stats.percentaje} % </td>
+      </tr>
+      `;
+    }
+    sectionUpcomingStats.innerHTML = body;
+  }
+
+  function renderPastStats(pastsStats){
+    const sectionPastStats = document.getElementById("section-past-stats");
+    body = ``;
+
+    for (let stats of pastsStats){
+      body += `
+      <tr>
+        <td> ${stats.category} </td>
+        <td> $ ${stats.revenue} </td>
+        <td> ${stats.percentaje} %</td>
+        </tr>
+      `
+    };
+    sectionPastStats.innerHTML = body;
+  }

@@ -40,6 +40,7 @@ h1 {
 .table-color > tr > th {
   background-color: #180a0a;
   color: whitesmoke;
+  border: #180a0a;
 }
 .table > tbody > tr:hover {
   background-color: #f582a7;
@@ -152,6 +153,12 @@ table {
   box-shadow: 2px 2px 5px #180a0a;
   height: 100%;
   }
+.tr-title > td{
+  background-color:#fba4bf;
+  border: #f582a7;
+  font-weight:500;
+}
+
 .f-bottom{
   width: 100%;
   position: fixed;
