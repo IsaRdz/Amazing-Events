@@ -48,26 +48,39 @@ setTimeout(() => {
 
   
   function eventsStatistics(){
-    let assistance = [];
+    let assistanceArray = [];
     let highestAssist = [];
     let lowestAssist = [];
+    let largerCapacity = [];
     let c;
     
-    pastEvents.map((event) => {
+    allEvents.map((event) => {
+
+      let assistance
+      if(event.assistance == undefined){
+        assistance = event.estimate;
+      } else if (event.estimate == undefined){
+        assistance = event.assistance;
+      }
+
       let eventStats = {
         "event" : event.name,
-        "percentaje" : (event.assistance/event.capacity)*100,
+        "percentaje" : Math.round((assistance/event.capacity)*100),
         "capacity": event.capacity
       }
-      assistance.push(eventStats);
+      assistanceArray.push(eventStats);
     });
+    console.log("assistanceArray", assistanceArray)
     
-    c = Math.round(assistance.length * 0.1);
+    c = Math.round(assistanceArray.length * 0.1);
     console.log("cantidad 10%",c);
     
-    highestAssist = assistance.sort(function(a,b){return b.percentaje - a.percentaje}).slice(0, c);
-    console.log("assistance",assistance);
-
+    highestAssist = assistanceArray.sort(function(a,b){return b.percentaje - a.percentaje}).slice(0, c);
+    lowestAssist = assistanceArray.sort(function(a,b){return a.percentaje - b.percentaje}).slice(0, c);
+    largerCapacity = assistanceArray.sort(function(a,b){return b.capacity - a.capacity}).slice(0, c);
+    console.log("highestAssist",highestAssist);
+    console.log("lowestAssist", lowestAssist);
+    console.log("largerCapacity", largerCapacity);
 
     renderStatistics(highestAssist);
 
@@ -152,8 +165,8 @@ setTimeout(() => {
     for(let assist of assistance){
       bodyStats +=`
       <tr>
-        <td>${assist.event}: ${ Math.round(assist.percentaje)}%</td>
-        <td>${assist.event}: ${ Math.round(assist.percentaje)}%</td>
+        <td>${assist.event}: ${assist.percentaje}%</td>
+        <td>${assist.event}: ${assist.percentaje}%</td>
         <td>${assist.event}: ${assist.capacity}</td> 
       </tr>
     `;
@@ -197,5 +210,24 @@ setTimeout(() => {
 
 }, "1000")
 
+/*
+const tableEventsStats = (events)=>{
+  const lwrToHgh = calculatePercentageAssistance(events)
+  const hghToLwr = calculatePercentageAssistance(events).reverse()
+  const hghToLwrCapacity = calculatePercentageAssistance(events).sort((a,b) => {return b.capacity - a.capacity})
+  const percentageEvents = percentageOfEvents(events)
 
-  
+  const tableBody = document.getElementById("event_stats")
+  for(let i=0; i<percentageEvents; i++){
+      const eventHgh = events.find(element => element._id === hghToLwr[i].eventId)
+      const eventLwr = events.find(element => element._id === lwrToHgh[i].eventId)
+      const capacity = events.find(element => element._id === hghToLwrCapacity[i].eventId)
+      tableBody.innerHTML += 
+      <tr>
+          <td class="column-width-1">${eventHgh.name}: ${hghToLwr[i].percentage}%</td>
+          <td class="column-width-1">${eventLwr.name}: ${lwrToHgh[i].percentage}%</td>
+          <td>${capacity.name}: ${hghToLwrCapacity[i].capacity}</td>
+      </tr>
+      
+  }
+}*/
