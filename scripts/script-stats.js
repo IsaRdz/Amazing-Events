@@ -79,7 +79,7 @@ setTimeout(() => {
     lowestAssist = assistanceArray.sort(function(a,b){return a.percentaje - b.percentaje}).slice(0, c);
     largerCapacity = assistanceArray.sort(function(a,b){return b.capacity - a.capacity}).slice(0, c);
 
-    renderStatistics(highestAssist,lowestAssist,largerCapacity);
+    renderStatistics(highestAssist,lowestAssist,largerCapacity,c);
 
   }
   eventsStatistics();
@@ -154,29 +154,24 @@ setTimeout(() => {
 
 
   
-  function renderStatistics(highestAssist,lowestAssist,largerCapacity){
+  function renderStatistics(highestAssist,lowestAssist,largerCapacity,c){
     console.log("highestAssist",highestAssist);
     console.log("lowestAssist", lowestAssist);
     console.log("largerCapacity", largerCapacity);
-    const fullArray = [];
-    fullArray.push(highestAssist,lowestAssist,largerCapacity);
-    console.log("fullArray", fullArray);
+    
     const eventsStatistics = document.getElementById("section-events-statistics");
     bodyStats = ``;
 
-    for (let i=0;i<fullArray.length;i++) {
-      for (let j=0;j<fullArray[i].length;j++) {
-          console.log(fullArray[i][j]);
-          
+    for(let i=0; i<c; i++){
+
       bodyStats +=`
               <tr>
-                <td>${fullArray[i][j].event}: ${fullArray[i][j].percentaje}%</td>
-                <td>${fullArray[i][j].event}: ${fullArray[i][j].percentaje}%</td>
-                <td>${fullArray[i][j].event}: ${fullArray[i][j].capacity}</td>
+                <td>${highestAssist[i].event}: ${highestAssist[i].percentaje}%</td>
+                <td>${lowestAssist[i].event}: ${lowestAssist[i].percentaje}%</td>
+                <td>${largerCapacity[i].event}: ${largerCapacity[i].capacity}</td>
               </tr>
             `;
-      }
-  }
+    }
     eventsStatistics.innerHTML = bodyStats;
 
   }
