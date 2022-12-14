@@ -62,6 +62,7 @@ footer{
   color: whitesmoke;
   display: flex;
   flex-wrap: nowrap;  
+  margin-top: 5vh;
 }
 .container-icons {
   width: 75%;
@@ -73,12 +74,10 @@ footer{
 .card-details {
   background-color: #711a75;
   border-radius: 7px;
-  /*height: 23rem;*/
 }
 .card-body-details {
   background-color: whitesmoke;
   border-radius: 7px;
-  /*height: 19.5rem;*/
   padding-bottom: 2vh;
 }
 .card-body-details > p{
@@ -127,12 +126,15 @@ span{
 
 .container-form {
   width: 50%;
-  margin: 0 auto;
   box-shadow: 2px 2px 4px gray;
   border-radius: 10px;
   background-color: #180a0a;
-  color: whitesmoke;
-  
+  color: whitesmoke;  
+  margin-bottom: 3vh;
+}
+.container-contact{
+  display: flex;
+  justify-content: center;
 }
 .container-checks{
   display: grid;

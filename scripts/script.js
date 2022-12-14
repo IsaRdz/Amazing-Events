@@ -1,16 +1,24 @@
 let data;
+const pastEvents = [];
+const upcomingEvents = [];
+const formCheck = document.getElementById("root-categories");
+const inputsCheckbox = document.querySelectorAll(".form-check-input");
+const hiddenTitle = document.getElementById("hidden-title");
+const inputSearchEvent = document.getElementById("input-search-event");
+const eventListItems = document.querySelectorAll(".card");
 
 const getDataEvents = async () => {
 const response = await fetch("../scripts/events.json");
 data = await response.json();
 console.log("data",data);
-return data;
+
+urlDetector();
+addCategories();
+
 }
 getDataEvents();
 
-
-setTimeout(() => {
-  
+ 
   const dateConverter = (dateToCompare) => {
     const dateSplit = dateToCompare.split("-");
     const dateToCompareParsed = new Date(
@@ -21,41 +29,38 @@ setTimeout(() => {
     const dateOfEvent = dateToCompareParsed.getTime();
     return dateOfEvent;
   };
-  
-  const actualDateInTimestamp = dateConverter(data.currentDate);
-  
-  const allEvents = data.events;
-  const pastEvents = [];
-  const upcomingEvents = [];
-  
-  const sectionHome = document.getElementById("section-home");
-  const sectionPast = document.getElementById("section-past");
-  const sectionUpcoming = document.getElementById("section-upcoming");
-  
-  const events = allEvents.map((event) => {
-    const dateToCompare = event.date;
-    dateOfEvent = dateConverter(dateToCompare);
-  
-    if (actualDateInTimestamp > dateOfEvent) {
-      pastEvents.push(event);
-    } else {
-      upcomingEvents.push(event);
+    
+ 
+  function urlDetector(){
+    const sectionHome = document.getElementById("section-home");
+    const sectionPast = document.getElementById("section-past");
+    const sectionUpcoming = document.getElementById("section-upcoming");
+    const actualDateInTimestamp = dateConverter(data.currentDate);
+    const events = data.events.map((event) => {
+      const dateToCompare = event.date;
+      dateOfEvent = dateConverter(dateToCompare);
+    
+      if (actualDateInTimestamp > dateOfEvent) {
+        pastEvents.push(event);
+      } else {
+        upcomingEvents.push(event);
+      }
+    });
+    
+    let currentURL = window.location.pathname.split("/").pop();
+    
+    if (currentURL == "index.html") {
+      showEvents(data.events, sectionHome);
+    } else if (currentURL == "past-events.html") {
+      showEvents(pastEvents, sectionPast);
+    } else if (currentURL == "upcoming-events.html") {
+      showEvents(upcomingEvents, sectionUpcoming);
     }
-  });
-  
-  let currentURL = window.location.pathname.split("/").pop();
-  
-  if (currentURL == "index.html") {
-    showEvents(allEvents, sectionHome);
-  } else if (currentURL == "past-events.html") {
-    showEvents(pastEvents, sectionPast);
-  } else if (currentURL == "upcoming-events.html") {
-    showEvents(upcomingEvents, sectionUpcoming);
   }
+   
   
   function showEvents(eventsArray, section) {
     let body = ``;
-    console.log("eventsArray", eventsArray.name);
     let URL = "";
   
     if (section.id == "section-home") {
@@ -89,16 +94,21 @@ setTimeout(() => {
     section.innerHTML = body;
     
   }
+
+  function allCategories(){
+    var arrayCategories = [];
+    data.events.forEach((categories) => arrayCategories.push(categories.category));
+    arrayCategories = arrayCategories.filter((item, index) => {
+      return arrayCategories.indexOf(item) === index;
+    });
+    console.log("arrayCategories", arrayCategories);
+    return arrayCategories;
+  }
+ 
   
-  var arrayCategories = [];
-  allEvents.forEach((categories) => arrayCategories.push(categories.category));
-  arrayCategories = arrayCategories.filter((item, index) => {
-    return arrayCategories.indexOf(item) === index;
-  });
-  console.log("arrayCategories", arrayCategories);
-  
-  function addCategories(arrayCategories) {
+  function addCategories() {
     let bodyCategories = ``;
+    arrayCategories = allCategories();
     const tagToUpdate = document.getElementById("root-categories");
   
     const events = arrayCategories.map((category) => {
@@ -116,11 +126,8 @@ setTimeout(() => {
     });
     tagToUpdate.innerHTML = bodyCategories;
   }
-  addCategories(arrayCategories);
   
-  const formCheck = document.getElementById("root-categories");
-  const inputsCheckbox = document.querySelectorAll(".form-check-input");
-  
+    
   formCheck.addEventListener("click", () => {
     var categoriesToShow = [];
   
@@ -133,14 +140,13 @@ setTimeout(() => {
     eventsChecked(categoriesToShow);
   });
   
-  const hiddenTitle = document.getElementById("hidden-title");
-  
+    
   function eventsChecked(categoriesToShow) {
     const eventsChecked = [];
     let flag = 0;
   
     if (currentURL == "index.html") {
-      allEvents.map((event) => {
+      data.events.map((event) => {
         for (let i = 0; i < categoriesToShow.length; i++) {
           if (categoriesToShow[i] == event.category.replace(" ", "-")) {
             eventsChecked.push(event);
@@ -153,7 +159,7 @@ setTimeout(() => {
       if (flag == 0 && categoriesToShow.length != 0) {
         hiddenTitle.style.display = "block";
       } else if (categoriesToShow.length == 0) {
-        showEvents(allEvents, sectionHome);
+        showEvents(data.events, sectionHome);
       }
     } else if (currentURL == "past-events.html") {
       pastEvents.map((event) => {
@@ -190,13 +196,7 @@ setTimeout(() => {
     }
   }
   
-  // SEARCH
-  
-  const inputSearchEvent = document.getElementById("input-search-event");
-  const eventListItems = document.querySelectorAll(".card");
-  
-  console.log("eventListItems", eventListItems);
-  
+
   inputSearchEvent.addEventListener("keyup", (event) => {
     console.log(event.target.value);
   
@@ -212,7 +212,7 @@ setTimeout(() => {
 
 
 
-}, "1000")
+
 
 
 
