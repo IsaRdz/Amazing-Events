@@ -4,21 +4,16 @@
   const response = await fetch("../scripts/events.json");
   data = await response.json();
   console.log("data",data);
-  return data;
+  renderDetails();
+  
   }
   getDataEvents();
 
-  setTimeout(() => {
-    
-    const sectionDetails = document.getElementById("section-details");
-
-    const nameEvent = window.location.search.split("=").pop().replace("%27","");
-    
-    console.log("nameEvent", nameEvent)
-    renderDetails(nameEvent);
   
-  function renderDetails(nameEvent) {
-    
+  function renderDetails() {
+    const sectionDetails = document.getElementById("section-details");
+    const nameEvent = window.location.search.split("=").pop().replace("%27","");
+    console.log("nameEvent", nameEvent)
     let bodyDetails = ``;
   
     data.events.map((event) => {
@@ -73,6 +68,5 @@
 
 
 
-  }, "1000")
 
   
