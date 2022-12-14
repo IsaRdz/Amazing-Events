@@ -1,16 +1,19 @@
-
   let data;
+  let pastEvents = [];
+  let upcomingEvents = [];
 
   const getDataEvents = async () => {
   const response = await fetch("../scripts/events.json");
   data = await response.json();
   console.log("data",data);
-  //return data;
+  
+  eventsForDate();
+  eventsStatistics();
+  upcomingRevenues();
+  pastsRevenues();
 }
 getDataEvents();
 
-
-//setTimeout(() => {
   
   const dateConverter = (dateToCompare) => {
     const dateSplit = dateToCompare.split("-");
@@ -23,28 +26,31 @@ getDataEvents();
     return dateOfEvent;
   };
   
-  const actualDateInTimestamp = dateConverter(data.currentDate);
-  const allEvents = data.events;
-  let pastEvents = [];
-  let upcomingEvents = [];
   
-  const events = allEvents.map((event) => {
-    const dateToCompare = event.date;
-    dateOfEvent = dateConverter(dateToCompare);
+  function eventsForDate(){
+    const actualDateInTimestamp = dateConverter(data.currentDate);
+    const events = data.events.map((event) => {
+      const dateToCompare = event.date;
+      dateOfEvent = dateConverter(dateToCompare);
+      if (actualDateInTimestamp > dateOfEvent) {
+        pastEvents.push(event);
+      } else {
+        upcomingEvents.push(event);
+      }
+    });    
+  }
   
-    if (actualDateInTimestamp > dateOfEvent) {
-      pastEvents.push(event);
-    } else {
-      upcomingEvents.push(event);
-    }
-  });
+
+  function allCategories(){
+    let arrayCategories = [];
+    data.events.forEach((categories) => arrayCategories.push(categories.category));
+    arrayCategories = arrayCategories.filter((item, index) => {
+      return arrayCategories.indexOf(item) === index;
+    });
+    console.log("arrayCategories", arrayCategories);
+    return arrayCategories;
+  }
   
-  let arrayCategories = [];
-  allEvents.forEach((categories) => arrayCategories.push(categories.category));
-  arrayCategories = arrayCategories.filter((item, index) => {
-    return arrayCategories.indexOf(item) === index;
-  });
-  console.log("arrayCategories", arrayCategories);
 
   
   function eventsStatistics(){
@@ -54,7 +60,7 @@ getDataEvents();
     let largerCapacity = [];
     let c;
     
-    allEvents.map((event) => {
+    data.events.map((event) => {
 
       let assistance
       if(event.assistance == undefined){
@@ -82,16 +88,18 @@ getDataEvents();
     renderStatistics(highestAssist,lowestAssist,largerCapacity,c);
 
   }
-  eventsStatistics();
+  
 
   function upcomingRevenues(){
     let upcomingStats = [];
-
+    arrayCategories = allCategories();
+    
     for(let i=0; i<arrayCategories.length;i++){
       let category;
       let revenue = 0;
       let percentaje = 0;
       //console.log("category: ",arrayCategories[i]);
+      
       upcomingEvents.map((event) => {
         if(event.category == arrayCategories[i]){
           category = arrayCategories[i];
@@ -116,11 +124,12 @@ getDataEvents();
     console.log("upcomingStats", upcomingStats);
     renderUpcomingStats(upcomingStats);
   }
-  upcomingRevenues();
+  
 
   function pastsRevenues(){
     let pastsStats = [];
-
+    arrayCategories = allCategories();
+    
     for(let i=0; i<arrayCategories.length;i++){
       let category;
       let revenue = 0;
@@ -150,9 +159,7 @@ getDataEvents();
     console.log("pastsStats", pastsStats);
     renderPastStats(pastsStats);
   }
-  pastsRevenues();
-
-
+  
   
   function renderStatistics(highestAssist,lowestAssist,largerCapacity,c){
     console.log("highestAssist",highestAssist);
@@ -209,5 +216,3 @@ getDataEvents();
   }
 
 
-
-//}, "1000")
