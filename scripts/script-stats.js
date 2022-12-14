@@ -5,12 +5,12 @@
   const response = await fetch("../scripts/events.json");
   data = await response.json();
   console.log("data",data);
-  return data;
+  //return data;
 }
 getDataEvents();
 
 
-setTimeout(() => {
+//setTimeout(() => {
   
   const dateConverter = (dateToCompare) => {
     const dateSplit = dateToCompare.split("-");
@@ -210,4 +210,4 @@ setTimeout(() => {
 
 
 
-}, "1000")
+//}, "1000")
