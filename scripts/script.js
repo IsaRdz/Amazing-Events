@@ -2,19 +2,23 @@ let data;
 const pastEvents = [];
 const upcomingEvents = [];
 const formCheck = document.getElementById("root-categories");
-const inputsCheckbox = document.querySelectorAll(".form-check-input");
 const hiddenTitle = document.getElementById("hidden-title");
 const inputSearchEvent = document.getElementById("input-search-event");
-const eventListItems = document.querySelectorAll(".card");
+let currentURL;
+const sectionHome = document.getElementById("section-home");
+const sectionPast = document.getElementById("section-past");
+const sectionUpcoming = document.getElementById("section-upcoming");
+
+
 
 const getDataEvents = async () => {
-const response = await fetch("../scripts/events.json");
-data = await response.json();
-console.log("data",data);
-
-urlDetector();
-addCategories();
-
+  const response = await fetch("../scripts/events.json");
+  data = await response.json();
+  console.log("data",data);
+  
+  urlDetector();
+  addCategories();
+  
 }
 getDataEvents();
 
@@ -30,11 +34,8 @@ getDataEvents();
     return dateOfEvent;
   };
     
- 
+  
   function urlDetector(){
-    const sectionHome = document.getElementById("section-home");
-    const sectionPast = document.getElementById("section-past");
-    const sectionUpcoming = document.getElementById("section-upcoming");
     const actualDateInTimestamp = dateConverter(data.currentDate);
     const events = data.events.map((event) => {
       const dateToCompare = event.date;
@@ -47,7 +48,7 @@ getDataEvents();
       }
     });
     
-    let currentURL = window.location.pathname.split("/").pop();
+    currentURL = window.location.pathname.split("/").pop();
     
     if (currentURL == "index.html") {
       showEvents(data.events, sectionHome);
@@ -129,29 +130,31 @@ getDataEvents();
   
     
   formCheck.addEventListener("click", () => {
+    const inputsCheckbox = document.querySelectorAll(".form-check-input");
     var categoriesToShow = [];
-  
+    
     inputsCheckbox.forEach((inputCheckbox) => {
       if (inputCheckbox.checked) {
-        console.log("Checkox selected:", inputCheckbox.value);
+        
         categoriesToShow.push(inputCheckbox.value);
       }
     });
     eventsChecked(categoriesToShow);
   });
   
-    
+  
   function eventsChecked(categoriesToShow) {
+    
     const eventsChecked = [];
     let flag = 0;
-  
     if (currentURL == "index.html") {
+      
       data.events.map((event) => {
         for (let i = 0; i < categoriesToShow.length; i++) {
           if (categoriesToShow[i] == event.category.replace(" ", "-")) {
             eventsChecked.push(event);
-            console.log("eventsChecked", eventsChecked);
             flag = 1;
+
           }
         }
       });
@@ -198,6 +201,7 @@ getDataEvents();
   
 
   inputSearchEvent.addEventListener("keyup", (event) => {
+    const eventListItems = document.querySelectorAll(".card");
     console.log(event.target.value);
   
     eventListItems.forEach((body) => {
