@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="icon" href="./assets/favicon.ico" type="image/png"/>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-      crossorigin="anonymous"/>
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous"/>
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <link rel="stylesheet" href="./styles/styles.css"/>
     <title>Home</title>
   </head>
@@ -94,27 +95,35 @@
       </button>
       </form>      
     </div>
-    <div class="container-checks">
-      <div class="my-3 mx-5 d-flex p-2 flex-wrap align-items-center justify-content-around" id="root-categories">
+    <main>
+
+      <div class="container-checks">
+        <div class="p-2 checks" id="root-categories">
+        </div>
+        <span class="filter-title hidden" id="filter-title"></span>
+        <div class="container-serch d-flex">
+          <input
+            class="form-control mx-2"
+            id="input-search-event"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"/>
+          <i class="bi bi-search"></i>
+        </div>
       </div>
-      <div class="container-serch d-flex mx-5 my-3">
-        <input
-          class="form-control mx-2"
-          id="input-search-event"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"/>
-        <i class="bi bi-search"></i>
+      <div class="button-arriba">
+        <a class="item" id="buttonTop">
+          <i class="fas fa-arrow-up"></i>
+        </a>
       </div>
-    </div>
-      
-    <div class="row row-cols-1 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 gy-4 mx-5 mb-5 justify-content-center" id="section-home">
-               
-    </div>
-    <div class="hidden-title" id="hidden-title">
-      <h3>Nothing to show, please try again</h3>   
-    </div>
-    
+        
+      <div class="row row-cols-1 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 gy-4 mx-5 mt-1 mb-5 justify-content-center" id="section-home">
+                 
+      </div>
+      <div class="hidden-title" id="hidden-title">
+        <h3>Nothing to show, please try again</h3>   
+      </div>
+    </main>
     <footer class="container-footer mt-5 pe-3">
       <div class="container-icons d-flex align-items-center pt-4 pb-4">
         <svg

@@ -8,8 +8,15 @@ body {
   height: 100%;
   margin: 0;
   position: relative;
+  bottom: 0;
   padding-bottom: 3em;
-  min-height: 100vh;
+  min-height: 100vh;  
+}
+.detail-body{
+  padding-bottom: 0;
+}
+main{
+  padding-bottom: 7em;
 }
 .title-color {
   background-color: #711a75;
@@ -50,6 +57,68 @@ h1 {
 .hidden {
   display: none;
 }
+/*** BUTTON TOP ***/
+.button-arriba {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: all .5s ease;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-arriba .item {
+  width: 0%;
+  height: 0%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  background-color: #f582a7;
+  color: #711a75 !important;
+  opacity: 0;
+  transform: scale(0);
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
+  transition: all .5s ease;
+}
+.shows {
+  animation: popup .5s ease-in-out !important;
+  transform: scale(1) !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  transition: all .5s ease;
+}
+
+@keyframes popup {
+  0% {
+      width: 0% !important;
+      height: 0% !important;
+      opacity: 0 !important;
+  }
+
+  50% {
+      width: 50% !important;
+      height: 50% !important;
+      opacity: 0.5 !important;
+  }
+
+  100% {
+      width: 100% !important;
+      height: 100% !important;
+      opacity: 1 !important;
+  }
+}
+
+/*** FOOTER ***/
 footer{
   width: 100%;
   position: absolute;
@@ -67,6 +136,9 @@ footer{
 .container-icons {
   width: 75%;
 }
+
+/*** CARD EVENTS ***/
+
 .container-details {
   height: 100%;
   margin-bottom: 10%;
@@ -99,12 +171,16 @@ footer{
 .card-title{
   text-align: center;
   padding-bottom: 1vh;
+  height: 1.3em;
+  overflow: hidden;
 }
 span{
   font-weight: bold;
 }
 .card-text{
-  height: 45%;
+  height: 4.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .image-card{
   width: 17.9rem;
@@ -124,22 +200,41 @@ span{
   box-shadow: 2px 2px 10px gray;
 }
 
+/*** FORM CONTACT ***/
+
 .container-form {
   width: 50%;
   box-shadow: 2px 2px 4px gray;
   border-radius: 10px;
   background-color: #180a0a;
   color: whitesmoke;  
+  padding: 8vh 5vw;
   margin-bottom: 3vh;
 }
 .container-contact{
   display: flex;
   justify-content: center;
+  padding-bottom: 5vh;
 }
+
+/*** FILTER AND SEARCH BAR ***/
 .container-checks{
   display: grid;
   grid-template-columns: 70% 30%;
 }
+.checks{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin: 4vh 1vw;
+}
+.container-serch{
+  margin: 4vh 2vw;
+}
+
+
+/*** STATS ***/
 .table {
   width: 70%;
   margin: 0 auto;
@@ -188,12 +283,20 @@ table {
   .card-body-details{
     margin-top: 2vh;
   }
+  .container-checks{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .checks{
+    justify-content: center;
+  }
 }
 
 @media (max-width: 625px) {
   .container-footer {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 5vh;
   }
   .rights {
     width: 100%;
@@ -209,8 +312,8 @@ table {
   .image-card{
     width: 100%;
   }
-  .card-text{
-    height: 50%;
+  .image-card > img{
+    image-rendering: auto;
   }
   .navbar-brand > img {
     width: 30vw;
@@ -224,4 +327,27 @@ table {
   .card-body-details > p{
     height: auto;
    }
+   .container-form{
+    padding: 2vh 3vw;
+   }
+   .container-contact{
+    padding-bottom: 10vh;
+    display: flex;
+    justify-content: center;
+  }
+  .form-check{
+    width: 100%;    
+  }
+  .container-serch{
+    margin: 4vh 4vw 2vh;
+  }
+  .checks, .filter-title{
+    margin-top: 1vh;
+    margin-left: 7vw;
+  }
+  .filter-title{
+    margin-bottom: 0.5vh;
+    cursor: pointer;
+  }
+
 }

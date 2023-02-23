@@ -213,9 +213,52 @@ getDataEvents();
     });
   });
 
+  
+const filterTitle = document.getElementById('filter-title');
+const checks = document.getElementById('root-categories');
+  
+const screenSizeDetector = () =>{
+  const screenWidth = screen.width;
+  
+  if(screenWidth < 625){
+    checks.style.display = 'none';
+    filterTitle.classList.remove('hidden');
+    filterTitle.textContent = "Filter +";
+    
+    }else if(screenWidth > 625){
+      checks.style.display = 'block';
+      filterTitle.classList.add('hidden');
+    }  
+}
+
+window.addEventListener("resize", screenSizeDetector);
+
+filterTitle.addEventListener("click", () =>{
+
+  if(checks.style.display == 'none'){
+    checks.style.display = 'block';
+    filterTitle.textContent = "Filter -";
+  }else{
+    checks.style.display = 'none';
+    filterTitle.textContent = "Filter +";
+  }
+});
 
 
-
+window.onscroll = () => {
+  const buttonTop = document.querySelector("#buttonTop")
+  if (document.documentElement.scrollTop > 100) {
+    buttonTop.classList.add("shows")
+  } else {
+    buttonTop.classList.remove("shows")
+  }
+  buttonTop.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  })
+}
 
 
 
