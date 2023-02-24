@@ -37,7 +37,7 @@
                       class="col-md-4 d-flex align-items-center justify-content-center"
                     >
                       <img
-                        src="../assets/salida-al-museo5.jpg"
+                        src="../assets/noImage.jpg"
                         class="img-fluid rounded-start shadow-card"
                         alt="..."
                       />
