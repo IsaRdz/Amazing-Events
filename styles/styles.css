@@ -237,7 +237,9 @@ span{
 /*** STATS ***/
 .table {
   width: 70%;
-  margin: 0 auto;
+  margin: 0 auto 7vh;
+  box-shadow: 2px 2px 5px #180a0a;
+  height: 100%;
 }
 td {
   height: 30px;
@@ -246,14 +248,11 @@ td {
   margin-bottom: 5vh;
   padding-bottom: 5vh;
 }
-table {
-  box-shadow: 2px 2px 5px #180a0a;
-  height: 100%;
-  }
 .tr-title > td{
   background-color:#fba4bf;
   border: #f582a7;
   font-weight:500;
+  vertical-align: middle;
 }
 
 .f-bottom{
@@ -307,7 +306,7 @@ table {
     justify-content: center;
   }
   .card {
-    width: 90%;
+    width: 95%;
   }
   .image-card{
     width: 100%;
@@ -348,6 +347,13 @@ table {
   .filter-title{
     margin-bottom: 0.5vh;
     cursor: pointer;
+  }
+  .checks{
+    display: none;
+  }
+  .table{
+    width: 90%;
+    padding-bottom: 10vh;
   }
 
 }
